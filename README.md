@@ -3,9 +3,9 @@ Unbound DNS
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
 
-* Based on [https://github.com/MatthewVance/unbound-docker] <MatthewVance/unbound-docker> 
+* Based on [MatthewVance/unbound-docker](https://github.com/MatthewVance/unbound-docker) 
 
-* Built own [https://hub.docker.com/r/megavolts/unbound/tags] <Docker Image - x86_64>
+* Built own [Docker Image - x86_64](https://hub.docker.com/r/megavolts/unbound/tags)
 
 * Update base Debian Image to Trixie  on Debian Trixie
 
