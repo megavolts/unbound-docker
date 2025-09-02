@@ -1,7 +1,7 @@
 # Unbound DNS Server Docker Image
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.23.1`, `latest` (*1.22.0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
+- [`1.23.1`, `latest` (*1.23.1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
 
 ## What is Unbound?
 
