@@ -1,4 +1,16 @@
-# Unbound DNS Server Docker Image
+Unbound DNS
+===========
+
+.. image:: https://img.shields.io/docker/pulls/megavolts/unbound
+  :alt: Docker Pulls
+  :target: https://hub.docker.com/repository/docker/megavolts/unbound
+
+* Based on `MatthewVance/unbound-docker <https://github.com/MatthewVance/unbound-docker>`_
+
+
+## Latest
+* Update base Debian Image to Trixie  on Debian Trixie
+* Update OpenSSL to  3.4.2
 
 ## Supported tags and respective `Dockerfile` links
 - [`1.23.1`, `latest` (*1.23.1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
@@ -9,9 +21,6 @@
 ## What is Unbound?
 Unbound is a validating, recursive, and caching DNS resolver.
 > [unbound.net](https://unbound.net/)
-
-
-
 
 ## How to use this image
 
@@ -26,7 +35,7 @@ docker run \
 --publish=53:53/tcp \
 --publish=53:53/udp \
 --restart=unless-stopped \
-mvance/unbound:latest
+megavolts/unbound:latest
 ```
 
 By default, this image forwards queries Cloudflare DNS server over TLS. In other words, it does not act as a recursive server. The [unbound.sh file](1.17.0/data/unbound.sh) provides the configuration unless it is overriden as described below.

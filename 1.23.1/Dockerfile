@@ -1,4 +1,4 @@
-FROM debian:bookworm AS openssl
+FROM debian:trixie AS openssl
 LABEL maintainer="Marc Oggier"
 
 ENV VERSION_OPENSSL=openssl-3.4.2 \
@@ -54,7 +54,7 @@ RUN set -e -x && \
         /var/tmp/* \
         /var/lib/apt/lists/*
 
-FROM debian:bookworm AS unbound
+FROM debian:trixie AS unbound
 LABEL maintainer="Marc Oggier"
 
 ENV NAME=unbound \
@@ -107,7 +107,7 @@ RUN build_deps="curl gcc libc-dev libevent-dev libexpat1-dev libnghttp2-dev make
         /var/tmp/* \
         /var/lib/apt/lists/*
 
-FROM debian:bookworm
+FROM debian:trixie
 LABEL maintainer="Marc Oggier"
 
 WORKDIR /tmp/src

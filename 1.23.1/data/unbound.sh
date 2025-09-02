@@ -389,7 +389,6 @@ server:
 
     include: /opt/unbound/etc/unbound/forward-records.conf
 
-
 remote-control:
     control-enable: no
 EOT
