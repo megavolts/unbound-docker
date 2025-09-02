@@ -3,10 +3,15 @@
 ## Supported tags and respective `Dockerfile` links
 - [`1.23.1`, `latest` (*1.23.1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
 
-## What is Unbound?
+## Modification
+- Use local root.hints file, updated weekly with a cron job
 
+## What is Unbound?
 Unbound is a validating, recursive, and caching DNS resolver.
 > [unbound.net](https://unbound.net/)
+
+
+
 
 ## How to use this image
 
@@ -222,6 +227,8 @@ If you would rather provide a fully custom `unbound.conf` file, you will need to
         target: /opt/unbound/etc/unbound/unbound.conf
 ```
 
+
+
 ### Kubernetes usage
 
 > The method described here is basic and not recommended for larger environments. While this example is provided, support for Kubernetes related issues is outside the scope of this project.
@@ -250,6 +257,14 @@ records and the main unbound configuration file.
 > secrets configuration is unencrypted per default. You are responsible to harden this yourself and should do so!
 
 # Notes
+
+### Use local root.hints file
+I modified the Matthew Vance unbound container to use local root.hints file, and schedule a cron job to update weekly the root.hints file.
+
+* Add wget and cron to packages to install
+* Used wget to download the latest root.hints file.
+* Used cron to schedule a job to update the local root.hints file weekly.
+* Added root-hints option to the default unbound.conf file.
 
 ## Recursive config
 
@@ -294,14 +309,14 @@ While annoying, the container works despite the error. Search this issues in thi
 
 ## Documentation
 
-Documentation for this image is stored right here in the [`README.md`](https://github.com/MatthewVance/unbound-docker/blob/master/README.md).
+Documentation for this image is stored right here in the [`README.md`](https://github.com/megavolts/unbound-docker/blob/master/README.md).
 
 Documentation for Unbound is available on the [project's website](https://unbound.net/).
 
 ## Issues
 
 If you have any problems with or questions about this image, please contact me
-through a [GitHub issue](https://github.com/MatthewVance/unbound-docker/issues).
+through a [GitHub issue](https://github.com/megavolts/unbound-docker/issues).
 
 ## Contributing
 
@@ -310,11 +325,11 @@ imagine the upstream projects would be equally pleased to receive your
 contributions.
 
 Please familiarize yourself with the [repository's `README.md`
-file](https://github.com/MatthewVance/unbound-docker/blob/master/README.md)
+file](https://github.com/megavolts/unbound-docker/blob/master/README.md)
 before attempting a pull request.
 
 Before you start to code, I recommend discussing your plans through a [GitHub
-issue](https://github.com/MatthewVance/unbound-docker/issues), especially for
+issue](https://github.com/megavolts/unbound-docker/issues), especially for
 more ambitious contributions. This gives other contributors a chance to point
 you in the right direction, give you feedback on your design, and help you find
 out if someone else is working on the same thing.
@@ -335,7 +350,7 @@ all possible.
 
 Unless otherwise specified, all code is released under the MIT License (MIT).
 See the [repository's `LICENSE`
-file](https://github.com/MatthewVance/unbound-docker/blob/master/LICENSE) for
+file](https://github.com/megavolts/unbound-docker/blob/master/LICENSE) for
 details.
 
 ### Licenses for other components

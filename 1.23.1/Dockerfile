@@ -61,7 +61,7 @@ ENV NAME=unbound \
     UNBOUND_VERSION=1.23.1 \
     UNBOUND_SHA256=6a6b117c799d8de3868643397e0fd71591f6d42f4473f598bdb22609ff362590 \
     UNBOUND_DOWNLOAD_URL=https://nlnetlabs.nl/downloads/unbound/unbound-1.23.1.tar.gz
-
+    
 WORKDIR /tmp/src
 
 COPY --from=openssl /opt/openssl /opt/openssl
@@ -100,13 +100,12 @@ RUN build_deps="curl gcc libc-dev libevent-dev libexpat1-dev libnghttp2-dev make
     make install && \
     mv /opt/unbound/etc/unbound/unbound.conf /opt/unbound/etc/unbound/unbound.conf.example && \
     apt-get purge -y --auto-remove \
-      $build_deps && \
+        $build_deps && \
     rm -rf \
         /opt/unbound/share/man \
         /tmp/* \
         /var/tmp/* \
         /var/lib/apt/lists/*
-
 
 FROM debian:bookworm
 LABEL maintainer="Marc Oggier"
@@ -123,9 +122,14 @@ RUN set -x && \
       libevent-2.1-7 \
       libnghttp2-14 \
       libexpat1 \
-      libprotobuf-c1 && \
+      libprotobuf-c1 \
+      wget \
+      cron && \
     groupadd _unbound && \
     useradd -g _unbound -s /dev/null -d /etc _unbound && \
+    wget -O /opt/unbound/etc/unbound/root.hints https://www.internic.net/domain/named.cache && \
+    (crontab -l 2>/dev/null; echo "0 0 * * 0 wget -O /opt/unbound/etc/unbound/root.hints https://www.internic.net/domain/named.cache && unbound-control reload") | crontab - && \
+    service cron start \
     apt-get purge -y --auto-remove \
       $build_deps && \
     rm -rf \

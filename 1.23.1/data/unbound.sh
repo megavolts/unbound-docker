@@ -203,6 +203,10 @@ server:
     # Only trust glue if it is within the servers authority.
     harden-glue: yes
 
+    # Use this only when you downloaded the list of primary root servers!
+    # If you use the default dns-root-data package, unbound will find it automatically
+    root-hints: "/opt/unbound/etc/unbound/root.hints"
+
     # Ignore very large queries.
     harden-large-queries: yes
 
