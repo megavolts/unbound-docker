@@ -1,9 +1,9 @@
 Unbound DNS
 ===========
 
-.. image:: https://img.shields.io/docker/pulls/megavolts/unbound
+.. image:: https://img.shields.io/docker/pulls/megavolts/unbound/general
   :alt: Docker Pulls
-  :target: https://hub.docker.com/repository/docker/megavolts/unbound
+  :target: https://hub.docker.com/repository/docker/megavolts/unbound/general
 
 * Based on `MatthewVance/unbound-docker <https://github.com/MatthewVance/unbound-docker>`_
 
@@ -11,6 +11,7 @@ Unbound DNS
 
 ## Latest
 * Update base Debian Image to Trixie  on Debian Trixie
+
 * Update OpenSSL to  3.4.2
 
 ## Supported tags and respective `Dockerfile` links
