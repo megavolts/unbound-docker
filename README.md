@@ -5,8 +5,7 @@ Unbound DNS
   :alt: Docker Pulls
   :target: https://hub.docker.com/repository/docker/megavolts/unbound
 
-* Based on `MatthewVance/unbound-docker <https://github.com/MatthewVance/unbound-docker>`_
-
+* Based on `MatthewVance/unbound-docker <https://github.com/MatthewVance/unbound-docker>`
 
 ## Latest
 * Update base Debian Image to Trixie  on Debian Trixie
