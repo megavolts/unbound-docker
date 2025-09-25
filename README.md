@@ -2,9 +2,13 @@
 ===========
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
+
 ![aarch64][aarch64-badge]
+
 ![amd64][amd64-badge]
+
 ![armv7][armv7-badge]
+
 
 * Built on Linux/Alpine: 3.22.1
 
