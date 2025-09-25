@@ -18,8 +18,7 @@ You can see the changes in the [`Releases`](https://github.com/madnuttah/unbound
 - armv7
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.24.0-0`, `latest` (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
-- [`1.23.1-1`, (*1.23.1-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
+- [`1.24.0-0`, `latest`, (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
 
 ## Modification
 - Use local root.hints file
