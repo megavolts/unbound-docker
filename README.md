@@ -1,7 +1,8 @@
-Unbound DNS
+[Unbound](https://unbound.net/) DNS
 ===========
 
-![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound-docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
+
 
 * Built on Linux/Alpine: 3.22.1
 
@@ -18,16 +19,12 @@ You can see the changes in the [`Releases`](https://github.com/madnuttah/unbound
 - armv7
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.24.0-0`, `latest` (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
-- [`1.23.1-1`, (*1.23.1-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
+- [`1.24.0-0`, `latest`, (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
+
 
 ## Modification
 - Use local root.hints file
-- Update local root.hints weekly with a cron job
-
-## What is Unbound?
-Unbound is a validating, recursive, and caching DNS resolver.
-> [unbound.net](https://unbound.net/)
+- Update local `root.hints` and `root.zone` weekly with a cron job
 
 ## How to use this image
 
@@ -39,8 +36,8 @@ Run this container with the following command:
 docker run \
 --name=my-unbound \
 --detach=true \
---publish=53:53/tcp \
---publish=53:53/udp \
+--publish=53:5335/tcp \
+--publish=53:5335/udp \
 --restart=unless-stopped \
 megavolts/unbound:latest
 ```
