@@ -1,4 +1,4 @@
-FROM debian:trixie AS openssl
+FROM debian:stable-slim AS openssl
 LABEL maintainer="Marc Oggier"
 
 ENV VERSION_OPENSSL=openssl-3.4.2 \
@@ -54,7 +54,7 @@ RUN set -e -x && \
         /var/tmp/* \
         /var/lib/apt/lists/*
 
-FROM debian:trixie AS unbound
+FROM debian:stable-slim AS unbound
 LABEL maintainer="Marc Oggier"
 
 ENV NAME=unbound \
@@ -107,7 +107,7 @@ RUN build_deps="curl gcc libc-dev libevent-dev libexpat1-dev libnghttp2-dev make
         /var/tmp/* \
         /var/lib/apt/lists/*
 
-FROM debian:trixie
+FROM debian:stable-slim
 LABEL maintainer="Marc Oggier"
 
 WORKDIR /tmp/src

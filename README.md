@@ -7,15 +7,18 @@ Unbound DNS
 
 * Built own [Docker Image - x86_64](https://hub.docker.com/r/megavolts/unbound/tags)
 
-* Update base Debian Image to Trixie  on Debian Trixie
+* Change base Debian image to Alpine
 
-* Update OpenSSL to  3.4.2
+## Changelog
+
+Move to alpine linux is motivated by the fact that Alpine is a recursive distribution, and thus already have the latest version of SSL and Unbound.
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.23.1`, `latest` (*1.23.1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
+- [`1.23.1-1`, `latest` (*1.23.1-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
 
 ## Modification
-- Use local root.hints file, updated weekly with a cron job
+- Use local root.hints file
+- Update local root.hints weekly with a cron job
 
 ## What is Unbound?
 Unbound is a validating, recursive, and caching DNS resolver.
