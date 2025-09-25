@@ -1,20 +1,25 @@
 Unbound DNS
 ===========
 
-![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
+![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound-docker)
 
-* Based on [MatthewVance/unbound-docker](https://github.com/MatthewVance/unbound-docker) 
+* Built on Linux/Alpine: 3.22.1
 
-* Built own [Docker Image - x86_64](https://hub.docker.com/r/megavolts/unbound/tags)
+* Unbound version: 1.24.0
 
-* Change base Debian image to Alpine
+* OpenSSL version: 3.5.3
 
-## Changelog
+## Changes
+You can see the changes in the [`Releases`](https://github.com/madnuttah/unbound-docker/RELEASES.md) section.
 
-Move to alpine linux is motivated by the fact that Alpine is a recursive distribution, and thus already have the latest version of SSL and Unbound.
+## Architecture
+- aarch64
+- amd64
+- armv7
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.23.1-1`, `latest` (*1.23.1-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
+- [`1.24.0-0`, `latest` (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
+- [`1.23.1-1`, (*1.23.1-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.23.1)
 
 ## Modification
 - Use local root.hints file
@@ -347,13 +352,14 @@ out if someone else is working on the same thing.
 
 ## Acknowledgments
 
-The code in this image is heavily influenced by DNSCrypt server Docker image,
-though the upstream projects most certainly also deserve credit for making this
-all possible.
+Thanks to the many Docker Images who got me inspired. This code was heavily influence by the Unbound Docker image from [MatthewVance](https://github.com/MatthewVance/unbound-docker).
+
+Credits for upstream project goes to:
+
+- [Alpine Linux](https://www.alpinelinux.org/)
 - [Docker](https://www.docker.com/)
-- [DNSCrypt server Docker image](https://github.com/jedisct1/dnscrypt-server-docker)
+- [Unbound](https://unbound.net/)
 - [OpenSSL](https://www.openssl.org/)
-- [Unbound](https://unbound.nlnetlabs.nl/)
 
 ## Licenses
 
