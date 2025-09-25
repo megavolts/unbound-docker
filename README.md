@@ -1,7 +1,7 @@
 [Unbound](https://unbound.net/) DNS
 ===========
 
-![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound-docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
 
 * Built on Linux/Alpine: 3.22.1
 
