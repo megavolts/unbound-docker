@@ -1,6 +1,8 @@
 [Unbound](https://unbound.net/) DNS
 ===========
 
+![Docker Version](https://img.shields.io/docker/v/megavolts/unbound)
+![Docker Size](https://img.shields.io/docker/image-size/megavolts/unbound/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
 
 
