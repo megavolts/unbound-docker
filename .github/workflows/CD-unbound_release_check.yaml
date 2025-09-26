@@ -31,20 +31,20 @@ jobs:
                 echo OPENSSL_VERSION="$(curl -s https://api.github.com/repos/openssl/openssl/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT 
             fi
 
-            echo UNBOUND_DOCKER_VERSION="curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2" >> $GITHUB_OUTPUT  
-            echo OPENSSL_DOCKER_VERSION="curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2" >> $GITHUB_OUTPUT  
+            echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
+            echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
 
       - name: Is update available
         id: IS_UPDATE_AVAILABLE
         run: |
-          if [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" || \
-                "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}"]]; then
+          if [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" && \
+                "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" ]]; then
             echo "No update found"
             exit 1
           else
             echo "Update found"
           fi 
-
+         
       - name: Checkout source
         uses: actions/checkout@v5
         with:
@@ -55,7 +55,7 @@ jobs:
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_SUBKEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          passphrase: ${{ secrets.GPG_PWD }}
           git_user_signingkey: true
           git_commit_gpgsign: true
           git_push_gpgsign: false
