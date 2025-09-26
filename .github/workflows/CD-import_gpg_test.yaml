@@ -1,8 +1,9 @@
 name: import-gpg
 
 on:
-  push:
-    branches: master
+  # push:
+  #   branches: master
+  workflow_dispatch:
 
 jobs:
   import-gpg:
@@ -15,8 +16,8 @@ jobs:
         name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_SUBKEY }}
-          passphrase: ${{ secrets.GPG_PASSWORD }}
+          gpg_private_key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.BOT_GPG_PWD }}
       -
         name: List keys
         run: gpg -K
