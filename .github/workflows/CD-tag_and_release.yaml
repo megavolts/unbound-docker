@@ -40,17 +40,17 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
           # new build
-          IMAGE_BUILD_DATE="$(date  --iso-8601=minute --utc | cut -d+ -f1)"
-          UNBOUND_VERSION="$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)"
-          OPENSSL_VERSION="$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)"
-          BUILD_REVISION=$(cat ./buildvars | awk '/^BUILD_REVISION=/' | cut -d= -f2)"
+          IMAGE_BUILD_DATE=$(date  --iso-8601=minute --utc | cut -d+ -f1)
+          UNBOUND_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
+          BUILD_REVISION=$(cat ./buildvars | awk '/^BUILD_REVISION=/' | cut -d= -f2)
           
           # previous build
-          UNBOUND_BUILD_VERSION="$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)"
-          OPENSSL_BUILD_VERSION="$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)"
+          UNBOUND_BUILD_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_BUILD_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
         
           # new release
-          UNBOUND_DOCKER_VERSION=$UNBOUND_VERSION"-"$BUILD_REVISION"
+          UNBOUND_DOCKER_VERSION=$UNBOUND_VERSION-$BUILD_REVISION
           RELEASE_TAG=v$UNBOUND_DOCKER_VERSION
           NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
           flag_unbound=false
