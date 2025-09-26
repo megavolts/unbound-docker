@@ -1,0 +1,82 @@
+name: CD Check NLnet Labs Unbound Release   
+             
+on:
+  schedule:
+    - cron: '0 17 * * mon-fri'
+  workflow_dispatch:
+
+jobs:
+  unbound-update:
+    runs-on: ubuntu-latest
+              
+    steps:
+      - name: Get versions
+        id: GET_VERSIONS
+        run: |
+            # Unbound Release
+            BOOL="$(curl -s https://api.github.com/repos/NLnetLabs/unbound/releases | jq '.[0] | .prerelease')"
+            if $BOOL; then
+                echo "Pre-release, skipping"
+                exit 1
+            else
+                echo UNBOUND_VERSION="$(curl -s https://api.github.com/repos/NLnetLabs/unbound/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT
+            fi
+
+            # OpenSSL Release, skipping prerelease
+            BOOL="$(curl -s https://api.github.com/repos/openssl/openssl/releases | jq '.[0] | .prerelease')"
+            if $BOOL; then
+                echo "Pre-release, skipping"
+                exit 1
+            else
+                echo OPENSSL_VERSION="$(curl -s https://api.github.com/repos/openssl/openssl/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT 
+            fi
+
+            echo UNBOUND_DOCKER_VERSION="curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2" >> $GITHUB_OUTPUT  
+            echo OPENSSL_DOCKER_VERSION="curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/master/envvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2" >> $GITHUB_OUTPUT  
+
+      - name: Is update available
+        id: IS_UPDATE_AVAILABLE
+        run: |
+          if [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" || \
+                "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}"]]; then
+            echo "No update found"
+            exit 1
+          else
+            echo "Update found"
+          fi 
+
+      - name: Checkout source
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          
+      - name: Import GPG key 
+        id: IMPORT_GPG
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_SUBKEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_push_gpgsign: false
+          trust_level: 5
+
+      - name: Push files to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
+          GIT_AUTHOR_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
+          GIT_COMMITTER_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
+          GIT_COMMITTER_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}  
+        #   UNBOUND_VERSION=${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }} 
+        #   OPENSSL_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }} 
+        #   echo IMAGE_BUILD_DATE="$(date  --iso-8601=minute --utc | cut -d+ -f1)" > buildvars
+        #   echo UNBOUND_VERSION="$UNBOUND_VERSION" >> buildvars
+        #   echo OPENSSL_VERSION="$OPENSSL_VERSION" >> buildvars
+        #   echo NEWRELEAED AVAILALBE >> buildvars
+          git add buildvars
+          git commit buildvars-m "Updated buildvars"
+          git push origin main
+          exit 0
