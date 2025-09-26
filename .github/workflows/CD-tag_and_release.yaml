@@ -6,7 +6,8 @@ on:
     workflows: [CD Unbound and OpenSSL upstream release check]
     types:
       - completed
- 
+  workflow_dispatch:
+
 jobs: 
   tag_and_release:
     runs-on: ubuntu-latest
@@ -38,7 +39,7 @@ jobs:
           GIT_COMMITTER_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          
+
           # new build
           IMAGE_BUILD_DATE="$(date  --iso-8601=minute --utc | cut -d+ -f1)"
           UNBOUND_VERSION="$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)"
