@@ -37,7 +37,8 @@ jobs:
           GIT_COMMITTER_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
           GIT_COMMITTER_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
         run: |
-          git remote set-url origin https://x-access-token:${{ secrets.BOT_GITHUB_TOKEN }}@github.com/${{ github.repository }}  
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          
           # new build
           IMAGE_BUILD_DATE="$(date  --iso-8601=minute --utc | cut -d+ -f1)"
           UNBOUND_VERSION="$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)"
