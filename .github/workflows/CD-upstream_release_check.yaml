@@ -41,7 +41,7 @@ jobs:
         run: |
           if ! [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" ]]; then
             echo "Update found for Unbound"
-            echo BUILD_REVISION="0" >> $GITHUB_OUTPUT
+            echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
           elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
             echo "Update found for OpenSSL"
             echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_VERSION }}+1 ))" >> $GITHUB_OUTPUT  
