@@ -6,7 +6,6 @@ on:
     workflows: [CD Unbound and OpenSSL upstream release check]
     types:
       - completed
-  workflow_dispatch:
 
 jobs: 
   tag_and_release:
