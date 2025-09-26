@@ -2,8 +2,8 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
     BUILD_NAME="Unbound" \
     BUILD_DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver." \
     UNBOUND_VERSION="1.24.0" \
-    BUILD_REVISION=0 \
     OPENSSL_VERSION="3.5.3" \
+    BUILD_REVISION=0 \
     UNBOUND_UID="1000" \
     UNBOUND_GID="1000"
 
@@ -23,6 +23,7 @@ ENV OPENSSL_VERSION=${OPENSSL_VERSION} \
     OPENSSL_PGP="BA5473A2B0587B07FB27CF2D216094DFD0CB81EF" \
     OPENSSL_DOWNLOAD_URL="https://github.com/openssl/openssl/releases/download/openssl-"${OPENSSL_VERSION}"/openssl-"${OPENSSL_VERSION}".tar.gz"
 
+    
 WORKDIR /tmp/src
 
 # Build OpenSSl from sources with checksum

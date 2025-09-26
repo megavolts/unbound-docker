@@ -77,7 +77,7 @@ jobs:
           OPENSSL_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }} 
           UNBOUND_VERSION=${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}
           BUILD_VERSION=${{ steps.GET_VERSIONS.outputs.BUILD_VERSION }}
-          echo OPENSSL_VERSION=$OPENSSL_VERSION >> buildvars
+          echo OPENSSL_VERSION=$OPENSSL_VERSION > buildvars
           echo UNBOUND_VERSION=$UNBOUND_VERSION >> buildvars
           echo BUILD_VERSION=$BUILD_VERSION >> buildvars
           git add buildvars
