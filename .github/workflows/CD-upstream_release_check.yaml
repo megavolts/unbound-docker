@@ -38,13 +38,13 @@ jobs:
       - name: Is update available
         id: IS_UPDATE_AVAILABLE
         run: |
-          if ![[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" ]]; then
+          if ! [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_DOCKER_VERSION }}" ]]; then
             echo "Update found for Unbound"
             echo BUILD_VERSION=0 >> $GITHUB_OUTPUT
-          elif ![[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
+          elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
             echo "Update found for OpenSSL"
             echo BUILD_VERSION=$(($${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_VERSION }}+1)) >> $GITHUB_OUTPUT  
-          else;
+          else
             echo "No update found"
             exit 1
           fi 
