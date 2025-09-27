@@ -44,7 +44,7 @@ jobs:
             echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
           elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" ]]; then
             echo "Update found for OpenSSL"
-            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_VERSION }}+1 ))" >> $GITHUB_OUTPUT  
+            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
           else
             echo "No update found"
             exit 1
@@ -77,7 +77,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}  
           OPENSSL_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }} 
           UNBOUND_VERSION=${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}
-          BUILD_REVISION=${{ steps.GET_VERSIONS.outputs.BUILD_REVISION }}
+          BUILD_REVISION=${{ steps.IS_UPDATE_AVAILABLE.outputs.BUILD_REVISION }}
           echo OPENSSL_VERSION=$OPENSSL_VERSION > buildvars
           echo UNBOUND_VERSION=$UNBOUND_VERSION >> buildvars
           echo BUILD_REVISION=$BUILD_REVISION >> buildvars
