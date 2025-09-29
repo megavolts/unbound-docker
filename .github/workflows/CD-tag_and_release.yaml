@@ -46,19 +46,19 @@ jobs:
           DOCKER_IMAGE_VERSION=$(cat ./buildvars | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d= -f2)
           
           # previous build
-          UNBOUND_BUILD_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
-          OPENSSL_BUILD_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
+          UNBOUND_CURRENT_VERSION=$(cat ./.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_CURRENT_VERSION=$(cat ./.current_release | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
         
           # new release
           RELEASE_TAG=v$DOCKER_IMAGE_VERSION
           NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
           flag_unbound=false
           flag_openssl=false
-          if ! [[ $UNBOUND_VERSION = $UNBOUND_BUILD_VERSION ]] ; then
+          if ! [[ $UNBOUND_VERSION = $UNBOUND_CURRENT_VERSION ]] ; then
             NOTES+="\n\x2:arrow_up_small: Updated Unbound to $UNBOUND_VERSION)"
             flag_unbound=true
           fi
-          if ! [[ $OPENSSL_VERSION = $OPENSSL_BUILD_VERSION ]] ; then
+          if ! [[ $OPENSSL_VERSION = $OPENSSL_CURRENT_VERSION ]] ; then
             NOTES+="\n\x2:arrow_double_up: Updated OpenSSL to $OPENSSL_VERSION)"
             flag_openssl=true
           fi
@@ -72,7 +72,7 @@ jobs:
           git tag -a "$RELEASE_TAG" -m "$RELEASE_TAG"
           git push -u origin "$RELEASE_TAG"
           git fetch --all --tags
-          git checkout -b "$UNBOUND_DOCKER_VERSION" "$RELEASE_TAG"
-          git push --set-upstream origin "$UNBOUND_DOCKER_VERSION"
-          gh release create "$RELEASE_TAG" -t "$UNBOUND_DOCKER_VERSION" -n "$RELEASE_NOTE" --latest
+          git checkout -b "$DOCKER_IMAGE_VERSION" "$RELEASE_TAG"
+          git push --set-upstream origin "$DOCKER_IMAGE_VERSION"
+          gh release create "$RELEASE_TAG" -t "$DOCKER_IMAGE_VERSION" -n "$RELEASE_NOTE" --latest
           exit 0
