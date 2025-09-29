@@ -1,9 +1,9 @@
 # 3 - build Unbound
-name: CD Build Distroless Unbound Docker Image
+name: CD Build Docker Image upon New Release
    
 on:   
   workflow_run:
-    workflows: [CD Check NLnet Labs Unbound Release]
+    workflows: [CD Unbound and OpenSSL upstream release check]
     types:
       - completed
 
@@ -13,7 +13,6 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
-      IMAGE_BUILD_DATE: ${{ steps.IMPORT_BUILDVARS.outputs.IMAGE_BUILD_DATE }}
       DOCKER_IMAGE_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.DOCKER_IMAGE_VERSION }}
       UNBOUND_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.UNBOUND_VERSION }}
       OPENSSL_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.OPENSSL_VERSION }}
@@ -28,7 +27,7 @@ jobs:
       id: IMPORT_BUILDVARS
       run: |
         cat buildvars | grep DOCKER_IMAGE_VERSION >> $GITHUB_OUTPUT
-        cat buildvars | grep IMAGE_BUILD_DATE >> $GITHUB_OUTPUT
+        cat buildvars | grep BUILD_DATETIME >> $GITHUB_OUTPUT
         cat buildvars | grep UNBOUND_VERSION >> $GITHUB_OUTPUT
         cat buildvars | grep OPENSSL_VERSION >> $GITHUB_OUTPUT
     
@@ -63,7 +62,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           builder: ${{ steps.buildx.outputs.name }}
           build-args: |
-            IMAGE_BUILD_DATE=${{ needs.buildvars.outputs.IMAGE_BUILD_DATE }}  
+            BUILD_DATETIME=${{ needs.buildvars.outputs.BUILD_DATETIME }}  
             UNBOUND_VERSION=${{ needs.buildvars.outputs.UNBOUND_VERSION }}  
             DOCKER_IMAGE_VERSION=${{ needs.buildvars.outputs.DOCKER_IMAGE_VERSION }}
             OPENSSL_VERSION=${{ needs.buildvars.outputs.OPENSSL_VERSION }}

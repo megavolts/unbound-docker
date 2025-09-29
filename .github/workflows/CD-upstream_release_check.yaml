@@ -78,10 +78,12 @@ jobs:
           OPENSSL_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }} 
           UNBOUND_VERSION=${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}
           BUILD_REVISION=${{ steps.IS_UPDATE_AVAILABLE.outputs.BUILD_REVISION }}
+          BUILD_DATETIME=$(date  --iso-8601=minute --utc | cut -d+ -f1)
           DOCKER_IMAGE_VERSION=$UNBOUND_VERSION-$BUILD_REVISION
           echo OPENSSL_VERSION=$OPENSSL_VERSION > buildvars
           echo UNBOUND_VERSION=$UNBOUND_VERSION >> buildvars
           echo DOCKER_IMAGE_VERSION=$DOCKER_IMAGE_VERSION >> buildvars
+          echo BUILD_DATETIME=$BUILD_DATETIME >> buildvars
           git add buildvars
           git commit buildvars -m "Updated buildvars"
           git push origin main
