@@ -34,7 +34,7 @@ jobs:
 
             echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
             echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
-            echo BUILD_DOCKER_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT  
+            echo BUILD_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT  
 
       - name: Is update available
         id: IS_UPDATE_AVAILABLE
