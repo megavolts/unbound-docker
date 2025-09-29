@@ -1,5 +1,5 @@
 # 1 - Daily check of upstream release for Unbound and OpenSSL
-name: CD Unbound and OpenSSL upstream release check
+name: CD Unbound and OpenSSL Release Check
 
 on:
   schedule:
