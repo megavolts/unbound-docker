@@ -192,8 +192,8 @@ RUN rm -rf \
     && strip --strip-all /usr/local/unbound/unbound.d/sbin/unbound-control \
     && strip --strip-all /usr/local/unbound/unbound.d/sbin/unbound-host
 
-# Creat config files
-COPY ./rootfs/ /
+# Create config files
+COPY ./unbound/rootfs/ /
 
 RUN mkdir -p \   
         /usr/local/unbound/conf.d/ \
