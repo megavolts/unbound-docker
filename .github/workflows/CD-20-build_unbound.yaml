@@ -7,7 +7,6 @@ on:
     types:
       - completed
 
-
 jobs:
   buildvars:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
