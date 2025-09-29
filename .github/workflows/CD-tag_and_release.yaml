@@ -43,15 +43,14 @@ jobs:
           IMAGE_BUILD_DATE=$(date  --iso-8601=minute --utc | cut -d+ -f1)
           UNBOUND_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
           OPENSSL_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
-          BUILD_REVISION=$(cat ./buildvars | awk '/^BUILD_REVISION=/' | cut -d= -f2)
+          DOCKER_IMAGE_VERSION=$(cat ./buildvars | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d= -f2)
           
           # previous build
           UNBOUND_BUILD_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
           OPENSSL_BUILD_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
         
           # new release
-          UNBOUND_DOCKER_VERSION=$UNBOUND_VERSION-$BUILD_REVISION
-          RELEASE_TAG=v$UNBOUND_DOCKER_VERSION
+          RELEASE_TAG=v$DOCKER_IMAGE_VERSION
           NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
           flag_unbound=false
           flag_openssl=false
@@ -65,6 +64,7 @@ jobs:
           fi
           if $flag_unbound ; then
             NOTES+="\n\n\x2A\x2ANLnet Labs Unbound changelog\x2A\x2A: https://github.com/NLnetLabs/unbound/releases/tag/release-$UNBOUND_VERSION" ;
+
           fi
           if $flag_openssl ; then
             NOTES+="\n\n\x2A\x2AOpenSSL changelog\x2A\x2A: https://github.com/openssl/openssl/releases/tag/openssl-$OPENSSL_VERSION" ;
