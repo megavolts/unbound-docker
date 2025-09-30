@@ -13,9 +13,9 @@
 
 [![CD Unbound and OpenSSL Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)]
 
-![CD Build Docker](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=Build%20Docker%20Image&style=for-the-badge)
+![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=Release%20latest%20tag)
 
-![CD Release Tag](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&style=for-the-badge&label=Released%20latest)
+![CD Release Tag](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&style=for-the-badge&label=Release%20latest%20tag)
 
 </details>
 
