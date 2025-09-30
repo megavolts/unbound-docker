@@ -10,10 +10,24 @@
     
   <summary>Build status</summary><br>
   <!-- https://img.shields.io/badges/git-hub-actions-workflow-status -->
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&label=Update%20Upstream%20Release)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&label=Build%20Docker%20Image)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&label=Released%20latest)<!-- 
-[![Manual Build Unbound Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/manually-build-unbound.yaml?branch=main&label=Manually%20megavolts/unbound%20build%20status&style=flat-square)](https://github.com/megavolts/unbound-docker/blob/main/.github/workflows/manually-build-unbound.yaml) -->
+
+[![Check Unbound and OpenSSL Release](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&label=Update%20Upstream%20Release)]
+
+
+https://img.shields.io/github/actions/workflow/status/:user/:repo/:workflow
+
+
+[![CD Check NLnet Labs Unbound release](https://img.shields.io/github/actions/workflow/status/madnuttah/unbound-docker/cd-check-unbound-release.yaml?branch=main&label=CD%20NLnet%20Labs%20Unbound%20Release&style=flat-square)](https://github.com/madnuttah/unbound-docker/blob/main/.github/workflows/cd-check-unbound-release.yaml)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&style=for-the-badge&label=Update%20Upstream%20Release)
+
+
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&label=Update%20Upstream%20Release)]
+
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&label=Build%20Docker%20Image&style=for-the-badge)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&label=Released%20latest&style=for-the-badge)
 
 </details>
 
