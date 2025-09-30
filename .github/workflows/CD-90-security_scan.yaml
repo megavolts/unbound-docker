@@ -1,4 +1,4 @@
-name: CD Security Scan   
+name: CD 90 Security Scan   
              
 on:
 #   schedule:
