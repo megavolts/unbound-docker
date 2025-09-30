@@ -6,6 +6,18 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
 
 
+<details> 
+    
+  <summary>Build status</summary><br>
+  <!-- https://img.shields.io/badges/git-hub-actions-workflow-status -->
+[![CD Check Unbound and OpenSSL Release](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&label=CD%20Nlnet%20Labs%20Unbound%20and%20OpenSSl%20release)]
+[![CD Check Unbound Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&label=Build%20Unbound%20Docker%20Image)]
+[![CD Released latest ]!(https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&label=Released%20latest)]
+<!-- 
+[![Manual Build Unbound Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/manually-build-unbound.yaml?branch=main&label=Manually%20megavolts/unbound%20build%20status&style=flat-square)](https://github.com/megavolts/unbound-docker/blob/main/.github/workflows/manually-build-unbound.yaml) -->
+
+</details>
+
 * Built on Linux/Alpine: 3.22.1
 
 * Unbound version: 1.24.0
@@ -13,7 +25,7 @@
 * OpenSSL version: 3.5.3
 
 ## Changes
-You can see the changes in the [`Releases`](https://github.com/madnuttah/unbound-docker/RELEASES.md) section.
+You can see the changes in the [`Releases`](https://github.com/megavolts/unbound-docker/RELEASES.md) section.
 
 ## Architecture
 - aarch64
