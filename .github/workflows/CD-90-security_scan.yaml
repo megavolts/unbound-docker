@@ -4,7 +4,7 @@ on:
 #   schedule:
 #     - cron: '0 */24 * * *'
 #   workflow_run:
-#     workflows: [CD 30 Tag and Release upon build]
+#     workflows: [CD 30 Tag and Release]
 #     types:
 #       - completed
   workflow_dispatch:
