@@ -15,6 +15,7 @@ jobs:
       DOCKER_IMAGE_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.DOCKER_IMAGE_VERSION }}
       UNBOUND_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.UNBOUND_VERSION }}
       OPENSSL_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.OPENSSL_VERSION }}
+      BUILD_DATETIME: ${{ steps.IMPORT_BUILDVARS.outputs.BUILD_DATETIME }}
     
     steps:             
     - name: Checkout source
