@@ -6,10 +6,11 @@ on:
     workflows: [CD 10 Unbound and OpenSSL Release Check]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   buildvars:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
       DOCKER_IMAGE_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.DOCKER_IMAGE_VERSION }}
