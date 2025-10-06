@@ -1,8 +1,8 @@
 [Unbound](https://unbound.net/) DNS
 ===========
 
-![Unbound version](https://img.shields.io/github/v/release/megavolts/unbound-docker?style=for-the-badge&label=Unbound%20%20Release)
-![OpenSSL version](https://img.shields.io/github/v/release/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=OpenSSL%20BuildEnv%20Release)
+![Unbound version](https://img.shields.io/github/v/release/megavolts/unbound-docker?style=for-the-badge&label=megavolts/unbound%20%20Release)
+![OpenSSL version](https://img.shields.io/github/v/release/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=megavolts/openSSL-dockerbuildenv)
 
 ![Docker Version](https://img.shields.io/docker/v/megavolts/unbound?style=for-the-badge&label=Unbound%20%20Release)
 ![Docker Version](https://img.shields.io/docker/v/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=Openssl%20%20Release)
