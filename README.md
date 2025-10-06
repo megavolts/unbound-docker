@@ -1,23 +1,24 @@
 [Unbound](https://unbound.net/) DNS
 ===========
 
-![Docker Version](https://img.shields.io/docker/v/megavolts/unbound)
-![Docker Size](https://img.shields.io/docker/image-size/megavolts/unbound/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
+![Docker Version](https://img.shields.io/docker/v/megavolts/unbound?style=for-the-badge&label=Unbound%20%20Release)
+![Docker Version](https://img.shields.io/docker/v/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=Openssl%20%20Release)
 
-![Unbound version](https://img.shields.io/github/v/release/megavolts/unbound-docker?style=for-the-badge&label=Unbound%20%20Release)
-![OpenSSL version](https://img.shields.io/github/v/release/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=OpenSSL%20BuildEnv%20Release)
+![Docker Size](https://img.shields.io/docker/image-size/megavolts/unbound/latest?style=for-the-badge&label=Image%20%20Size)
+![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound?style=for-the-badge&label=Image%20%20Pull)
 
 <details> 
     
   <summary>Build status</summary><br>
   <!-- https://img.shields.io/badges/git-hub-actions-workflow-status -->
 
-![CD Unbound and OpenSSL Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-upstream_release_check.yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)
+![CD Unbound Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-check_upstream_releases    .yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)
 
 ![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=Build%20Docker%20Image)
 
 ![CD Release Tag](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&style=for-the-badge&label=Release%20latest%20tag)
+
+![CD Security Scan](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-90-security_scan.yaml?branch=main&style=for-the-badge&label=Security%20Scan)
 
 </details>
 
