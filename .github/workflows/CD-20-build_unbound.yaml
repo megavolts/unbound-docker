@@ -3,7 +3,7 @@ name: CD 20 Build Unbound Docker Image
    
 on:   
   workflow_run:
-    workflows: [CD 10 Unbound and OpenSSL Release Check]
+    workflows: [CD 10 Unbound and OpenSSL Build Environement Release]
     types:
       - completed
   workflow_dispatch:
