@@ -12,7 +12,7 @@
   <summary>Build status</summary><br>
   <!-- https://img.shields.io/badges/git-hub-actions-workflow-status -->
 
-![CD Unbound Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-check_upstream_releases    .yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)
+![CD Unbound Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-check_upstream_releases.yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)
 
 ![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=Build%20Docker%20Image)
 
