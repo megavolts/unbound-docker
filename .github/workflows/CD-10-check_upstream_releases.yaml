@@ -31,7 +31,7 @@ jobs:
             # After first full auto build change .current_release to buildvars
             echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
             echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)" >> $GITHUB_OUTPUT  
-            echo BUILD_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT
+            echo DOCKER_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT
 
       - name: Is update available
         id: IS_UPDATE_AVAILABLE
@@ -41,7 +41,7 @@ jobs:
             echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
           elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
             echo "Update found for OpenSSL Build Environement"
-            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
+            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
           else
             echo "No update found"
             exit 1
@@ -74,11 +74,9 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}  
 
           BUILD_DATE=$(date  --iso-8601)
-
-          OPENSSL_DOCKERBUILDENV_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKERBUILDENV_VERSION }} 
           UNBOUND_VERSION=${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}
+          OPENSSL_DOCKERBUILDENV_VERSION=${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKERBUILDENV_VERSION }} 
           BUILD_REVISION=${{ steps.IS_UPDATE_AVAILABLE.outputs.BUILD_REVISION }}
-
           DOCKER_IMAGE_VERSION=$UNBOUND_VERSION-$BUILD_REVISION
 
           echo BUILD_DATE=$BUILD_DATE > buildvars

@@ -1,12 +1,13 @@
 ARG BUILD_REPOSITORY="megavolts/unbound" \
     BUILD_NAME="Unbound" \
     BUILD_DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver." \
+    UNBOUND_UID="1000" \
+    UNBOUND_GID="1000" \
     BUILD_DATE \
     UNBOUND_VERSION \
     OPENSSL_DOCKERBUILDENV_VERSION \
     BUILD_REVISION \
-    UNBOUND_UID="1000" \
-    UNBOUND_GID="1000"
+
 
 # Stage 1. Build Unbound with latest OpenSSL build env
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
@@ -120,9 +121,9 @@ RUN addgroup -S -g "${UNBOUND_GID}" _unbound \
         protobuf-c-dev \
         hiredis-dev \
         bash \
-    && curl -sSL ${UNBOUND_DOWNLOAD_URL} -o unbound.tar.gz \
-    && curl -sSL ${UNBOUND_DOWNLOAD_URL}.asc -o unbound.tar.gz.asc \
-    && curl -sSL ${UNBOUND_DOWNLOAD_URL}.sha256 -o unbound.tar.gz.sha256 \
+    && curl -sSL "${UNBOUND_DOWNLOAD_URL}" -o unbound.tar.gz \
+    && curl -sSL "${UNBOUND_DOWNLOAD_URL}.asc" -o unbound.tar.gz.asc \
+    && curl -sSL "${UNBOUND_DOWNLOAD_URL}.sha256" -o unbound.tar.gz.sha256 \
     && echo "`cat unbound.tar.gz.sha256` unbound.tar.gz" | sha256sum -c - \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
@@ -333,12 +334,12 @@ ARG UNBOUND_VERSION \
     BUILD_DESCRIPTION \
     BUILD_REPOSITORY
 
-ENV UNBOUND_HEALTHCHECK_PORT=${UNBOUND_HEALTHCHECK_PORT} \
-    DISABLE_SET_PERMS=${DISABLE_SET_PERMS} \
-    UNBOUND_UID=${UNBOUND_UID} \
-    UNBOUND_GID=${UNBOUND_GID} \
-    TZ=${TZ} \
-    PATH=/usr/local/unbound/unbound.d/sbin:/usr/local/sbin/:"$PATH" 
+ENV UNBOUND_HEALTHCHECK_PORT="${UNBOUND_HEALTHCHECK_PORT}" \
+    DISABLE_SET_PERMS="${DISABLE_SET_PERMS}" \
+    UNBOUND_UID="${UNBOUND_UID}" \
+    UNBOUND_GID="${UNBOUND_GID}" \
+    TZ="${TZ}" \
+    PATH="/usr/local/unbound/unbound.d/sbin:/usr/local/sbin/:$PATH" 
 
 WORKDIR /
 
@@ -353,7 +354,7 @@ ENTRYPOINT ["/sbin/tini", "--", "/entrypoint"]
 LABEL maintainer="megavolts <marc.oggier@megavolts.ch>"\
       org.opencontainers.image.arch="${TARGETARCH}" \
       org.opencontainers.image.version=${UNBOUND_VERSION}-${BUILD_REVISION} \
-      org.opencontainers.image.title="BUILD_NAME"-app \
+      org.opencontainers.image.title="BUILD_NAME" \
       org.opencontainers.image.description="BUILD_DESCRIPTION" \
       org.opencontainers.image.url="https://github.com/"${BUILD_REPOSITORY} \
       org.opencontainers.image.vendor="Marc Oggier" \
