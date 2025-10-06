@@ -13,9 +13,6 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
 FROM megavolts/openssl-dockerbuildenv:"$OPENSSL_DOCKERBUILDENV_VERSION" AS buildenv
 
-# Set shell
-SHELL ["/bin/sh", "-o", "pipefail", "-c"] 
-
 # # Define argument
 # ARG OPENSSL_VERSION
 
@@ -98,6 +95,9 @@ ENV UNBOUND_VERSION="${UNBOUND_VERSION}" \
     UNBOUND_PGP_GEORGE="948EB42322C5D00B79340F5DCFF3344D9087A490" \
     UNBOUND_UID="${UNBOUND_UID}" \
     UNBOUND_GID="${UNBOUND_GID}"
+
+# Define shell
+SHELL ["/bin/sh", "-o", "pipefail", "-c"] 
 
 WORKDIR /tmp/src
 
