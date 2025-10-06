@@ -1,9 +1,11 @@
 # 1 - Daily check of upstream release for Unbound and OpenSSL
+# OpenSSL cron job 0 17 * * Mon-Fri
+# Unbound cron job 0 18 * * Mon-Fri
 name: CD 10 Unbound and OpenSSL Build Environement Release
 
 on:
   schedule:
-    - cron: '0 17 * * mon-fri'
+    - cron: '0 18 * * mon-fri'
   workflow_dispatch:
 
 jobs:

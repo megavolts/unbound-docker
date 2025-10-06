@@ -1,27 +1,28 @@
+# Perform security scan 24 hours after the last one
 name: CD 90 Security Scan   
              
 on:
-  # schedule:
-  #   - cron: '0 */24 * * *'
+  schedule:
+    - cron: '0 */24 * * *'
+  workflow_dispatch:
   workflow_run:
     workflows: [CD 30 Tag and Release]
     types:
       - completed
-  workflow_dispatch:
-
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     
     env:
-      DOCKERHUB_SLUG: "megavolts/unbound"  
-      
+      DOCKERHUB_SLUG: "megavolts/unbound"
+    
     steps:         
       - name: Checkout source
         uses: actions/checkout@v5
         with:
           persist-credentials: false
+
 
       - name: Login to Dockerhub
         if: github.event_name != 'pull_request'
@@ -29,7 +30,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         if: ${{ github.event_name != 'pull_request' }}
