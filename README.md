@@ -14,11 +14,11 @@
 
 ![CD Unbound Release Check](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-10-check_upstream_releases.yaml?branch=main&style=for-the-badge&label=CD%20Upstream%20Release%20Check)
 
-![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=Build%20Docker%20Image)
+![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=CD%20Build%20Docker%20Image)
 
-![CD Release Tag](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&style=for-the-badge&label=Release%20latest%20tag)
+![CD Release Tag](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-30-tag_and_release.yaml?branch=main&style=for-the-badge&label=CD%20Release%20latest%20tag)
 
-![CD Security Scan](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-90-security_scan.yaml?branch=main&style=for-the-badge&label=Security%20Scan)
+![CD Security Scan](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-90-security_scan.yaml?branch=main&style=for-the-badge&label=CD%20Security%20Scan)
 
 </details>
 
