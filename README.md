@@ -5,7 +5,8 @@
 ![Docker Size](https://img.shields.io/docker/image-size/megavolts/unbound/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/megavolts/unbound)
 
-[[![OpenSSL version](https://img.shields.io/github/v/release/megavolts/openssl-dockerbuildenv?style=plastic&label=OpenSSL%20BuildEnv%20Release)
+![Unbound version](https://img.shields.io/github/v/release/megavolts/unbound-docker?style=for-the-badge&label=Unbound%20%20Release)
+![OpenSSL version](https://img.shields.io/github/v/release/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=OpenSSL%20BuildEnv%20Release)
 
 <details> 
     
