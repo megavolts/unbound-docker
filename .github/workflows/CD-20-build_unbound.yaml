@@ -6,7 +6,6 @@ on:
     workflows: [CD 10 Unbound and OpenSSL Build Environement Release]
     types:
       - completed
-  workflow_dispatch:
 
 jobs:
   buildvars:

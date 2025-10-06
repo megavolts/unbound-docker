@@ -6,7 +6,6 @@ on:
     workflows: [CD 20 Build Unbound Docker Image]
     types:
       - completed
-  workflow_dispatch:
 
 jobs: 
   tag_and_release:
