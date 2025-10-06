@@ -1,0 +1,21 @@
+name: import-gpg
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gpg-import:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v5
+      -
+        name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.BOT_GPG_PWD }}
+      -
+        name: List keys
+        run: gpg -K
