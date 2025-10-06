@@ -23,7 +23,7 @@
 
 * Unbound version: 1.24.0
 
-* OpenSSL version: 3.5.3
+* OpenSSL version: 3.6.0
 
 ## Changes
 You can see the changes in the [`Releases`](https://github.com/megavolts/unbound-docker/RELEASES.md) section.
@@ -35,6 +35,8 @@ You can see the changes in the [`Releases`](https://github.com/megavolts/unbound
 
 ## Supported tags and respective `Dockerfile` links
 - [`1.24.0-0`, `latest`, (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
+- [`1.24.0-1`, `latest`, (*1.24.0-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.1)
+- [`1.24.0-2`, `latest`, (*1.24.0-2/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.2)
 
 
 ## Modification
