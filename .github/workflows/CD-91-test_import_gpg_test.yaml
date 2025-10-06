@@ -1,4 +1,4 @@
-name: Test GPG import
+name: CD 91 - Test GPG import
 
 on:
   workflow_dispatch:
