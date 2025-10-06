@@ -10,7 +10,7 @@ on:
 
 jobs:
   buildvars:
-#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
       BUILD_DATE: ${{ steps.IMPORT_BUILDVARS.outputs.BUILD_DATE }}
@@ -32,7 +32,8 @@ jobs:
         cat buildvars | grep OPENSSL_DOCKERBUILDENV_VERSION >> $GITHUB_OUTPUT
         cat buildvars | grep DOCKER_IMAGE_VERSION >> $GITHUB_OUTPUT
 
-  build: 
+  unbound-build: 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     needs: buildvars
     steps:
