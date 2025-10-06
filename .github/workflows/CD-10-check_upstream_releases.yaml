@@ -24,12 +24,13 @@ jobs:
             fi
 
             # OpenSSL Docker Build Environement
-            echo OPENSSL_DOCKERBUILDENV_VERSION="$(curl -s https://api.github.com/repos/megavolts/openssl-dockerbuildenv/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT 
-
+            echo OPENSSL_VERSION="$(curl -s https://api.github.com/repos/megavolts/openssl-dockerbuildenv/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT 
+            echo OPENSSL_DOCKERBUILDENV_VERSION="$(curl -s https://api.github.com/repos/megavolts/openssl-dockerbuildenv/releases | jq '.[0] | .name' -r)" >> $GITHUB_OUTPUT 
+            
             # Get current docker build version in .current_release
             # After first full auto build change .current_release to buildvars
             echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
-            echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
+            echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)" >> $GITHUB_OUTPUT  
             echo BUILD_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT
 
       - name: Is update available
@@ -38,7 +39,7 @@ jobs:
           if ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" ]]; then
             echo "Update found for Unbound"
             echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
-          elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKERBUILDENV_VERSION }}" ]]; then
+          elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
             echo "Update found for OpenSSL Build Environement"
             echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
           else
