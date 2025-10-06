@@ -36,7 +36,7 @@ jobs:
       - name: Is update available
         id: IS_UPDATE_AVAILABLE
         run: |
-          if ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" ]]; then
+          if ! [[ "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.UNBOUND_VERSION }}" ]]; then
             echo "Update found for Unbound"
             echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
           elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
