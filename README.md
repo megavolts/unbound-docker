@@ -1,8 +1,8 @@
 [Unbound](https://unbound.net/) DNS
 ===========
 
-![Unbound Version](https://img.shields.io/docker/v/megavolts/unbound?style=for-the-badge&label=Unbound%20%20Release)
-![OpenSSL Version](https://img.shields.io/docker/v/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=Openssl%20%20Release)
+![Unbound Version](https://img.shields.io/docker/v/megavolts/unbound?style=for-the-badge&label=megavolts/unbound)
+![OpenSSL Version](https://img.shields.io/docker/v/megavolts/openssl-dockerbuildenv?style=for-the-badge&label=megavolts/openssl-dockerbuildenv)
 ![CD Build Docker Image](https://img.shields.io/github/actions/workflow/status/megavolts/unbound-docker/CD-20-build_unbound.yaml?branch=main&style=for-the-badge&label=CD%20Build%20Docker%20Image)
 
 ![Docker Size](https://img.shields.io/docker/image-size/megavolts/unbound/latest?style=for-the-badge&label=Image%20%20Size)
@@ -40,8 +40,6 @@ You can see the changes in the [`Releases`](https://github.com/megavolts/unbound
 ## Supported tags and respective `Dockerfile` links
 - [`1.24.0-0`, `latest`, (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
 - [`1.24.0-1`, `latest`, (*1.24.0-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.1)
-- [`1.24.0-2`, `latest`, (*1.24.0-2/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.2)
-
 
 ## Modification
 - Use local root.hints file
