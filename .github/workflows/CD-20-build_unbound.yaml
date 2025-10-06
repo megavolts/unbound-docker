@@ -14,8 +14,8 @@ jobs:
     outputs:
       DOCKER_IMAGE_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.DOCKER_IMAGE_VERSION }}
       UNBOUND_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.UNBOUND_VERSION }}
-      OPENSSL_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.OPENSSL_VERSION }}
-      BUILD_DATETIME: ${{ steps.IMPORT_BUILDVARS.outputs.BUILD_DATETIME }}
+      OPENSSL_DOCKERBUILDENV_VERSION: ${{ steps.IMPORT_BUILDVARS.outputs.OPENSSL_DOCKERBUILDENV_VERSION }}
+      BUILD_DATE: ${{ steps.IMPORT_BUILDVARS.outputs.BUILD_DATE }}
     
     steps:             
     - name: Checkout source
@@ -27,10 +27,10 @@ jobs:
       id: IMPORT_BUILDVARS
       run: |
         cat buildvars | grep DOCKER_IMAGE_VERSION >> $GITHUB_OUTPUT
-        cat buildvars | grep BUILD_DATETIME >> $GITHUB_OUTPUT
+        cat buildvars | grep BUILD_DATE >> $GITHUB_OUTPUT
         cat buildvars | grep UNBOUND_VERSION >> $GITHUB_OUTPUT
         cat buildvars | grep OPENSSL_VERSION >> $GITHUB_OUTPUT
-    
+
   build: 
     runs-on: ubuntu-latest
     needs: buildvars
@@ -62,10 +62,10 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           builder: ${{ steps.buildx.outputs.name }}
           build-args: |
-            BUILD_DATETIME=${{ needs.buildvars.outputs.BUILD_DATETIME }}  
+            BUILD_DATE=${{ needs.buildvars.outputs.BUILD_DATETIME }}  
             UNBOUND_VERSION=${{ needs.buildvars.outputs.UNBOUND_VERSION }}  
             DOCKER_IMAGE_VERSION=${{ needs.buildvars.outputs.DOCKER_IMAGE_VERSION }}
-            OPENSSL_VERSION=${{ needs.buildvars.outputs.OPENSSL_VERSION }}
+            OPENSSL_DOCKERBUILDENV_VERSION=${{ needs.buildvars.outputs.OPENSSL_DOCKERBUILDENV_VERSION }}
           file: ./unbound/release.Dockerfile   
           push: ${{ github.event_name != 'pull_request' }}
           sbom: ${{ github.event_name != 'pull_request' }}
