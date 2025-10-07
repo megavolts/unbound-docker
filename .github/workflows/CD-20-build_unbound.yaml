@@ -60,7 +60,7 @@ jobs:
         env:
           DOCKERHUB_SLUG: "megavolts/unbound"
         with:
-          platforms: linux/amd64,linux/armv6,linux/armv7,linux/aarch64
+          platforms: linux/amd64,linux/armv6,linux/armv7,linux/amd64
           builder: ${{ steps.buildx.outputs.name }}
           build-args: |
             BUILD_DATE=${{ needs.buildvars.outputs.BUILD_DATE }}  
