@@ -54,11 +54,11 @@ jobs:
           flag_unbound=false
           flag_openssl=false
           if ! [[ $UNBOUND_VERSION = $UNBOUND_CURRENT_VERSION ]] ; then
-            NOTES+="\n\x2:arrow_up_small: Updated Unbound to $UNBOUND_VERSION)"
+            NOTES+="\n:arrow_up_small: Updated Unbound to $UNBOUND_VERSION)"
             flag_unbound=true
           fi
           if ! [[ $OPENSSL_VERSION = $OPENSSL_CURRENT_VERSION ]] ; then
-            NOTES+="\n\x2:arrow_double_up: Updated OpenSSL to $OPENSSL_VERSION)"
+            NOTES+="\n:arrow_double_up: Updated OpenSSL to $OPENSSL_VERSION)"
             flag_openssl=true
           fi
           if $flag_unbound ; then
