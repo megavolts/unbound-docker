@@ -368,7 +368,8 @@ out if someone else is working on the same thing.
 
 ## Acknowledgments
 
-Thanks to the many Docker Images who got me inspired. This code was heavily influence by the Unbound Docker image from [MatthewVance](https://github.com/MatthewVance/unbound-docker).
+Thanks to the many Docker Images who got me inspired, especially [MatthewVance](https://github.com/MatthewVance/unbound-docker) and team [MΛDИVTTΛH](https://github.com/hat3ph/adguard-unbound).
+
 
 Credits for upstream project goes to:
 
@@ -376,6 +377,7 @@ Credits for upstream project goes to:
 - [Docker](https://www.docker.com/)
 - [Unbound](https://unbound.net/)
 - [OpenSSL](https://www.openssl.org/)
+- [Aqua Security](https://trivy.dev/)
 
 ## Licenses
 
@@ -389,7 +391,5 @@ details.
 ### Licenses for other components
 
 - Docker: [Apache 2.0](https://github.com/docker/docker/blob/master/LICENSE)
-- DNSCrypt server Docker image: [ISC License](https://github.com/jedisct1/dnscrypt-server-docker/blob/master/LICENSE)
-- LibreSSL: [Various](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libssl/src/LICENSE?rev=1.12&content-type=text/x-cvsweb-markup)
 - OpenSSL: [Apache-style license](https://www.openssl.org/source/license.html)
 - Unbound: [BSD License](https://unbound.nlnetlabs.nl/svn/trunk/LICENSE)
