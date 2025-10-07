@@ -29,11 +29,10 @@ jobs:
             echo OPENSSL_VERSION="$(curl -s https://api.github.com/repos/megavolts/openssl-dockerbuildenv/releases | jq '.[0] | .name' -r | grep -Eo '([0-9]+)(\.?[0-9]+)*' | head -1)" >> $GITHUB_OUTPUT 
             echo OPENSSL_DOCKERBUILDENV_VERSION="$(curl -s https://api.github.com/repos/megavolts/openssl-dockerbuildenv/releases | jq '.[0] | .name' -r)" >> $GITHUB_OUTPUT 
             
-            # Get current docker build version in .current_release
-            # After first full auto build change .current_release to buildvars
-            echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
-            echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)" >> $GITHUB_OUTPUT  
-            echo DOCKER_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/.current_release | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT
+            # Get current docker build version from previous buildvars
+            echo UNBOUND_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)" >> $GITHUB_OUTPUT  
+            echo OPENSSL_DOCKER_VERSION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/buildvars | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)" >> $GITHUB_OUTPUT  
+            echo DOCKER_REVISION="$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/main/buildvars | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d- -f2)" >> $GITHUB_OUTPUT
 
       - name: Is update available
         id: IS_UPDATE_AVAILABLE

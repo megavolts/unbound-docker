@@ -45,19 +45,20 @@ jobs:
           DOCKER_IMAGE_VERSION=$(cat ./buildvars | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d= -f2)
           
           # previous build
-          UNBOUND_CURRENT_VERSION=$(cat ./.current_release | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
-          OPENSSL_CURRENT_VERSION=$(cat ./.current_release | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
+          PREVIOUS_RELEASE=$(curl -s https://api.github.com/repos/megavolts/unbound-docker/releases | jq '.[0] | .name' -r)
+          UNBOUND_PREVIOUS_VERSION=$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/$PREVIOUS_RELEASE/buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_PREVIOUS_VERSION=$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/$PREVIOUS_RELEASE/buildvars | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)
         
           # new release
           RELEASE_TAG=v$DOCKER_IMAGE_VERSION
           NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
           flag_unbound=false
           flag_openssl=false
-          if ! [[ $UNBOUND_VERSION = $UNBOUND_CURRENT_VERSION ]] ; then
+          if ! [[ $UNBOUND_VERSION = $UNBOUND_PREVIOUS_VERSION ]] ; then
             NOTES+="\n:arrow_up_small: Updated Unbound to $UNBOUND_VERSION)"
             flag_unbound=true
           fi
-          if ! [[ $OPENSSL_VERSION = $OPENSSL_CURRENT_VERSION ]] ; then
+          if ! [[ $OPENSSL_VERSION = $OPENSSL_PREVIOUS_VERSION ]] ; then
             NOTES+="\n:arrow_double_up: Updated OpenSSL to $OPENSSL_VERSION)"
             flag_openssl=true
           fi
