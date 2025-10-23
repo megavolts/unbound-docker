@@ -52,7 +52,7 @@ jobs:
         
           # new release
           RELEASE_TAG=v$DOCKER_IMAGE_VERSION
-          NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
+          NOTES="\x23\x23 $(date '+%Y-%m-%d') \n\x23\x23 What's Changed?"
           flag_unbound=false
           flag_openssl=false
           if ! [[ $UNBOUND_VERSION = $UNBOUND_PREVIOUS_VERSION ]] ; then
