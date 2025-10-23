@@ -27,7 +27,7 @@
 
 * Built on Linux/Alpine: 3.22.1
 
-* Unbound version: 1.24.0
+* Unbound version: 1.24.1
 
 * OpenSSL version: 3.6.0
 
@@ -40,8 +40,8 @@ You can see the changes in the [`Releases`](https://github.com/megavolts/unbound
 - armv7
 
 ## Supported tags and respective `Dockerfile` links
-- [`1.24.0-0`, `latest`, (*1.24.0-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0)
-- [`1.24.0-1`, `latest`, (*1.24.0-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.1)
+- [`1.24.0-1`, (*1.24.0-1/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.0-1)
+- [`1.24.1-0`, `latest`, (*1.24.1-0/Dockerfile*)](https://github.com/megavolts/unbound-docker/tree/master/1.24.1)
 
 ## Modification
 - Use local root.hints file
