@@ -191,17 +191,17 @@ COPY --from=buildenv /usr/local/unbound/ \
 COPY --from=buildenv /etc/crontabs/root \
         /app/etc/crontabs/root
 
-# move to /app/usr/lib rather than /app/lib
+# copy /app/lib
 COPY --from=buildenv /lib/*-musl-* \
-        /app/usr/lib/
-
- # move to /app/usr/bin rather than /app/bin
+        /app/lib/
+        
+# copy /app/bin
 COPY --from=buildenv /bin/sh /bin/sed /bin/grep /bin/netstat /bin/chown /bin/chgrp \
-        /app/usr/bin/
+        /app/bin/
   
-# move to /app/usr/sbin rather than /app/sbin        
+# copy /app/sbin        
 COPY --from=buildenv /sbin/su-exec /sbin/tini \
-        /app/usr/sbin/
+        /app/sbin/
   
 # for changing user
 COPY --from=buildenv /usr/sbin/groupmod /usr/sbin/usermod \
