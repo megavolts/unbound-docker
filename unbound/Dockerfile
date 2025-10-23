@@ -10,7 +10,7 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
 
 # Stage 1. Build Unbound with latest OpenSSL build env
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
-FROM megavolts/openssl-dockerbuildenv:"$OPENSSL_DOCKERBUILDENV_VERSION" AS buildenv
+FROM --platform=linux/amd64 megavolts/openssl-dockerbuildenv:"$OPENSSL_DOCKERBUILDENV_VERSION" AS buildenv
 
 # Define shell
 SHELL ["/bin/sh", "-o", "pipefail", "-c"] 
