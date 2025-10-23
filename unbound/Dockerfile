@@ -127,7 +127,7 @@ RUN rm -rf \
     && strip --strip-all /usr/local/unbound/unbound.d/sbin/unbound-host
 
 # Create config files
-COPY ./unbound/rootfs/ /
+COPY ./rootfs/ /
 
 RUN mkdir -p \   
         /usr/local/unbound/conf.d/ \

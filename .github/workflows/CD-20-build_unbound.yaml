@@ -68,6 +68,7 @@ jobs:
             DOCKER_IMAGE_VERSION=${{ needs.buildvars.outputs.DOCKER_IMAGE_VERSION }}
             OPENSSL_DOCKERBUILDENV_VERSION=${{ needs.buildvars.outputs.OPENSSL_DOCKERBUILDENV_VERSION }}
           file: ./unbound/Dockerfile   
+          context: ./unbound/
           push: ${{ github.event_name != 'pull_request' }}
           sbom: ${{ github.event_name != 'pull_request' }}
           provenance: ${{ github.event_name != 'pull_request' }}
