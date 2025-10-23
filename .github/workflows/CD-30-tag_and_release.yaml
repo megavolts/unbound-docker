@@ -3,7 +3,7 @@ name: CD 30 Tag and Release
    
 on:       
   workflow_run:
-    workflows: [CD 21 Manually Build Unbound Docker Image]
+    workflows: [CD 20 Build Unbound Docker Image]
     types:
       - completed
 
