@@ -1,0 +1,85 @@
+# 3 - Tag and Release
+name: CD 31 Manual Tag and Release
+   
+on:       
+  workflow_dispatch:
+  workflow_run:
+    workflows: [CD 21 Manually Build Unbound Docker Image]
+    types:
+      - completed
+
+jobs: 
+  tag_and_release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:             
+      - name: Checkout source
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Import GPG key 
+        id: IMPORT_GPG
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.BOT_GPG_PWD }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_tag_gpgsign: true
+          git_push_gpgsign: false
+          trust_level: 5
+          
+      - name: Push tag and upload release to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
+          GIT_AUTHOR_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
+          GIT_COMMITTER_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
+          GIT_COMMITTER_EMAIL: ${{ steps.IMPORT_GPG.outputs.email }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+          # new build
+          UNBOUND_VERSION=$(cat ./buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_VERSION=$(cat ./buildvars | awk '/^OPENSSL_VERSION=/' | cut -d= -f2)
+          DOCKER_IMAGE_VERSION=$(cat ./buildvars | awk '/^DOCKER_IMAGE_VERSION=/' | cut -d= -f2)
+          
+          # previous build
+          PREVIOUS_RELEASE=$(curl -s https://api.github.com/repos/megavolts/unbound-docker/releases | jq '.[0] | .name' -r)
+          UNBOUND_PREVIOUS_VERSION=$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/$PREVIOUS_RELEASE/buildvars | awk '/^UNBOUND_VERSION=/' | cut -d= -f2)
+          OPENSSL_PREVIOUS_VERSION=$(curl -s https://raw.githubusercontent.com/megavolts/unbound-docker/refs/heads/$PREVIOUS_RELEASE/buildvars | awk '/^OPENSSL_DOCKERBUILDENV_VERSION=/' | cut -d= -f2 | cut -d- -f1)
+        
+          # new release
+          RELEASE_TAG=v$DOCKER_IMAGE_VERSION
+          NOTES="\x23\x23 $(date '+%Y-%m-%d') <megavolts'bot>\n\x23\x23 What's Changed?"
+          flag_unbound=false
+          flag_openssl=false
+          if ! [[ $UNBOUND_VERSION = $UNBOUND_PREVIOUS_VERSION ]] ; then
+            NOTES+="\n:arrow_up_small: Updated Unbound to $UNBOUND_VERSION)"
+            flag_unbound=true
+          fi
+          if ! [[ $OPENSSL_VERSION = $OPENSSL_PREVIOUS_VERSION ]] ; then
+            NOTES+="\n:arrow_double_up: Updated OpenSSL to $OPENSSL_VERSION)"
+            flag_openssl=true
+          fi
+          if $flag_unbound ; then
+            NOTES+="\n\n\x2A\x2ANLnet Labs Unbound changelog\x2A\x2A: https://github.com/NLnetLabs/unbound/releases/tag/release-$UNBOUND_VERSION" ;
+
+          fi
+          if $flag_openssl ; then
+            NOTES+="\n\n\x2A\x2AOpenSSL changelog\x2A\x2A: https://github.com/openssl/openssl/releases/tag/openssl-$OPENSSL_VERSION" ;
+          fi
+
+          RELEASE_NOTE=$(echo -e $NOTES)
+
+          git tag -a "$RELEASE_TAG" -m "$RELEASE_TAG"
+          git push -u origin "$RELEASE_TAG"
+
+          git fetch --all --tags
+
+          git checkout -b "$DOCKER_IMAGE_VERSION" "$RELEASE_TAG"
+          git push --set-upstream origin "$DOCKER_IMAGE_VERSION"
+          gh release create "$RELEASE_TAG" -t "$DOCKER_IMAGE_VERSION" -n "$RELEASE_NOTE" --latest
+          
+          exit 0
