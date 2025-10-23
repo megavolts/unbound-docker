@@ -22,14 +22,13 @@ jobs:
     - name: Import build variables from buildvars file
       id: IMPORT_BUILDVARS
       run: |
+        FLAG_NEWREVISION=false
+
         cat buildvars | grep BUILD_DATE >> $GITHUB_OUTPUT
         cat buildvars | grep UNBOUND_VERSION >> $GITHUB_OUTPUT
         cat buildvars | grep OPENSSL_DOCKERBUILDENV_VERSION >> $GITHUB_OUTPUT
         
         BUILD_IMAGE_VERSION=$(cat buildvars | grep BUILD_IMAGE_VERSION  | cut -d= -f2)
-        BUILD_VERSION=$(echo $BUILD_IMAGE_VERSION | cut -d- -f1)
-        BUILD_REVISION=$(echo $BUILD_IMAGE_VERSION | cut -d- -f2)
-
 
         # Check if BUILD_VERSION is already released
         if [[ $(curl -s https://api.github.com/repos/megavolts/unbound-docker/releases | grep "status" | cut -d\" -f4) = 404 ]];
@@ -48,17 +47,16 @@ jobs:
                 BUILD_REVISION=$(( $BUILD_REVISION +1 ))
                 BUILD_IMAGE_VERSION=$BUILD_VERSION-$BUILD_REVISION
 
-                echo "BUILD_IMAGE_VERSION=$BUILD_IMAGE_VERSION" >> $GITHUB_OUTPUT
-                echo "BUILD_REVISION=$BUILD_REVISION" >> $GITHUB_OUTPUT
-
-            else
-              echo "BUILD_REVISION=$BUILD_REVISION" >> $GITHUB_OUTPUT
-              cat buildvars | grep BUILD_IMAGE_VERSION >> $GITHUB_OUTPUT
+                # Update buildvars
+                echo "FLAG_NEWREVISION=true"
             fi
-            # Update buildvars
+
+            echo "BUILD_IMAGE_VERSION=$BUILD_IMAGE_VERSION" >> $GITHUB_OUTPUT
           fi
-    # TODO make this job happens only if FLAG_REVISION=1
-    - name: Import GPG key 
+
+    # The next step happens only if FLAG_REVISION=1
+    - name: Import GPG key if needed for next step
+      if: ${{ steps.IMPORT_BUILDVARS.outputs.FLAG_NEWREVISION }}
       id: IMPORT_GPG
       uses: crazy-max/ghaction-import-gpg@v6
       with:
@@ -70,6 +68,7 @@ jobs:
         trust_level: 5
 
     - name: Push updates buildvar to repository if needed
+      if: ${{ steps.IMPORT_BUILDVARS.outputs.FLAG_NEWREVISION }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_AUTHOR_NAME: ${{ steps.IMPORT_GPG.outputs.name }}
