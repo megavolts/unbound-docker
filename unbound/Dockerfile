@@ -146,6 +146,8 @@ RUN mkdir -p \
         /usr/local/unbound/unbound.d/urandom \
     && chmod -R 755 \
         /usr/local/unbound/sbin/* \
+    && chmod 700 \
+        /usr/local/sbin/healthcheck.sh \
     # enable root.hints and root.zone updated via crontab
     && (crontab -l 2>/dev/null; echo "0 0 * * 0 /bin/bash /usr/local/unbound/sbin/01-update_root_hints.sh && unbound-control reload") | crontab - \
     && (crontab -l 2>/dev/null; echo "0 0 * * 0 /bin/bash /usr/local/unbound/sbin/01-update_root_zone.sh && unbound-control reload") | crontab - \
@@ -295,7 +297,7 @@ LABEL maintainer="megavolts <marc.oggier@megavolts.ch>"\
       org.opencontainers.image.version=${DOCKER_IMAGE_VERSION} \
       org.opencontainers.image.title="BUILD_NAME" \
       org.opencontainers.image.description="BUILD_DESCRIPTION" \
-      org.opencontainers.image.url="https://github.com/"${BUILD_REPOSITORY} \
+      org.opencontainers.image.url=https://github.com/"${BUILD_REPOSITORY}" \
       org.opencontainers.image.vendor="Marc Oggier" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/"${BUILD_REPOSITORY}
+      org.opencontainers.image.source=https://github.com/"${BUILD_REPOSITORY}"
