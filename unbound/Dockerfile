@@ -3,10 +3,11 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
     BUILD_DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver." \
     UNBOUND_UID="1000" \
     UNBOUND_GID="1000" \
+    USER=unbound \
     BUILD_DATE \
     UNBOUND_VERSION \
     OPENSSL_DOCKERBUILDENV_VERSION \
-    DOCKER_IMAGE_VERSION
+    DOCKER_IMAGE_VERSION 
 
 # Stage 1. Build Unbound with latest OpenSSL build env
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
@@ -29,7 +30,6 @@ ENV UNBOUND_VERSION="${UNBOUND_VERSION}" \
     UNBOUND_PGP_GEORGE="948EB42322C5D00B79340F5DCFF3344D9087A490" \
     UNBOUND_UID="${UNBOUND_UID}" \
     UNBOUND_GID="${UNBOUND_GID}"
-
 
 WORKDIR /tmp/src
 
@@ -62,9 +62,10 @@ RUN addgroup -S -g "${UNBOUND_GID}" _unbound \
     && gpg --no-tty --recv-keys "${UNBOUND_PGP_WIJNGAARDS}" "${UNBOUND_PGP_GEORGE}" \
     && gpg --batch --verify unbound.tar.gz.asc unbound.tar.gz \
     && tar -xzf unbound.tar.gz \
-    && rm unbound.tar.gz \
-    && cd unbound-"${UNBOUND_VERSION}" \
-    && ./configure \
+    && rm unbound.tar.gz
+
+WORKDIR /tmp/src/unbound-"${UNBOUND_VERSION}"
+RUN ./configure \
         --prefix=/usr/local/unbound/unbound.d/ \
         --with-run-dir=/usr/local/unbound/unbound.d \
         --with-conf-file=/usr/local/unbound/unbound.conf \
@@ -259,8 +260,8 @@ COPY --from=buildenv --chmod=755 /entrypoint \
         /app/
 
 # # healthcheck
-# COPY --from=buildenv --chmod=755 /usr/local/unbound/sbin/healthcheck.sh \
-#         /app/usr/local/unbound/sbin/healthcheck.sh
+COPY --from=buildenv --chmod=755 /usr/local/sbin/healthcheck.sh \
+        /app/usr/local/sbin/healthcheck.sh
 
 ## 2.2 Assemble unbound container
 FROM scratch AS unbound
@@ -277,13 +278,15 @@ ENV UNBOUND_HEALTHCHECK_PORT="${UNBOUND_HEALTHCHECK_PORT}" \
     TZ="${TZ}" \
     PATH="/usr/local/unbound/unbound.d/sbin:/usr/local/sbin/:$PATH" 
 
+USER $UNBOUND_UID
+
 WORKDIR /
 
 VOLUME [ "/usr/local/unbound"]
 
 COPY --from=stage /app/ /
 
-HEALTHCHECK --interval=30s --timeout=15s --start-period=5s CMD sh /usr/local/unbound/sbin/healthcheck.sh 
+HEALTHCHECK --interval=30s --timeout=15s --start-period=5s CMD sh /usr/local/sbin/healthcheck.sh 
 
 ENTRYPOINT ["/sbin/tini", "--", "/entrypoint"]
 
