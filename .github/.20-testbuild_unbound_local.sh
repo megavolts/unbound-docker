@@ -25,7 +25,7 @@ fi
 
 echo "Building docker image $DOCKER_IMAGE_VERSION with openssl build env $OPENSSL_DOCKERBUILDENV_VERSION and unbound $UNBOUND_VERSION on $BUILD_DATE"
 
-docker buildx build ./unbound -t megavolts/unbound:test --load \
+docker buildx build ./unbound -t megavolts/unbound:local -t megavolts/unbound:latest --load \
     --build-arg BUILD_IMAGE_VERSION=$DOCKER_IMAGE_VERSION \
     --build-arg TARGETPLATFORM=linux/amd64 \
     --build-arg UNBOUND_VERSION=$UNBOUND_VERSION \
