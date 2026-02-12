@@ -38,10 +38,10 @@ jobs:
             echo BUILD_REVISION=0 >> $GITHUB_OUTPUT
           elif ! [[ "${{ steps.GET_VERSIONS.outputs.OPENSSL_DOCKER_VERSION }}" = "${{ steps.GET_VERSIONS.outputs.OPENSSL_VERSION }}" ]]; then
             echo "Update found for OpenSSL Build Environement"
-            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
+            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
           else
             echo "No update found. Force build"
-            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.DOCKER_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
+            echo BUILD_REVISION="$(( ${{ steps.GET_VERSIONS.outputs.BUILD_REVISION }}+1 ))" >> $GITHUB_OUTPUT  
           fi 
          
       - name: Checkout source
