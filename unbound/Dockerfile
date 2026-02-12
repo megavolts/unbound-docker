@@ -3,11 +3,14 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
     BUILD_DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver." \
     UNBOUND_UID="1000" \
     UNBOUND_GID="1000" \
+    BUILDPLATFORM \
     USER=unbound \
     BUILD_DATE \
     UNBOUND_VERSION \
     OPENSSL_DOCKERBUILDENV_VERSION \
     DOCKER_IMAGE_VERSION 
+
+ENV BUILDPLATFORM
 
 # Stage 1. Build Unbound with latest OpenSSL build env
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
@@ -177,13 +180,19 @@ RUN apk --update --no-cache add \
         tzdata \
         # for dig
         drill \
-        tini \
         # to execute unbound.sh
         shadow \
         su-exec \
         bash \
+        tini \
     #cleanup
     && rm -rf /tmp/* /var/cache/apk/*
+
+# Add tini
+
+# ENV TINI_VERSION=v0.19.0
+# ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+# RUN chmod +x /tini
 
 # Stage 2 Assemble for target platform
 ## 2.1 Finalize
@@ -205,7 +214,10 @@ COPY --from=buildenv /bin/sh /bin/sed /bin/grep /bin/netstat /bin/chown /bin/chg
 # copy /app/sbin        
 COPY --from=buildenv /sbin/su-exec /sbin/tini \
         /app/sbin/
-  
+
+# COPY --from=buildenv /tini \
+#         /app/
+
 # for changing user
 COPY --from=buildenv /usr/sbin/groupmod /usr/sbin/usermod \
         /app/usr/sbin/
@@ -283,7 +295,7 @@ EXPOSE 5335/tcp 5335/udp
 
 WORKDIR /
 
-VOLUME [ "/usr/local/unbound"]
+VOLUME ["/usr/local/unbound"]
 
 COPY --from=stage /app/ /
 

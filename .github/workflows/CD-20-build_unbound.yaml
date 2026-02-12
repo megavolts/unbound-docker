@@ -35,9 +35,26 @@ jobs:
 
   unbound-build: 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+          - platform: linux/arm/v7
+            runner: ubuntu-24.04-arm
+          - platform: linux/arm/v6
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     needs: buildvars
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "BUILDPLATFORM=${platform//\//-}" >> $GITHUB_ENV
+
       - name: Checkout source
         uses: actions/checkout@v5
         with:
@@ -58,11 +75,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v6
         env:
           DOCKERHUB_SLUG: "megavolts/unbound"
         with:
-          platforms: linux/amd64,linux/armv/6,linux/armv/7,linux/arm64,linux/i386
+          platforms: ${{ matrix.platform }}
           builder: ${{ steps.buildx.outputs.name }}
           build-args: |
             BUILD_DATE=${{ needs.buildvars.outputs.BUILD_DATE }}  
