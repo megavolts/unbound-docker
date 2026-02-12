@@ -3,15 +3,12 @@ ARG BUILD_REPOSITORY="megavolts/unbound" \
     BUILD_DESCRIPTION="Unbound is a validating, recursive, and caching DNS resolver." \
     UNBOUND_UID="1000" \
     UNBOUND_GID="1000" \
-    BUILDPLATFORM \
     USER=unbound \
     BUILD_DATE \
     UNBOUND_VERSION \
     OPENSSL_DOCKERBUILDENV_VERSION \
     DOCKER_IMAGE_VERSION 
-
-ENV BUILDPLATFORM
-
+    
 # Stage 1. Build Unbound with latest OpenSSL build env
 #FROM --platform=$BUILDPLATFORM alpine:latest AS buildenv
 FROM --platform=$BUILDPLATFORM megavolts/openssl-dockerbuildenv:"$OPENSSL_DOCKERBUILDENV_VERSION" AS buildenv
