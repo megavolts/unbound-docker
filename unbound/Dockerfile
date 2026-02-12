@@ -224,10 +224,7 @@ COPY --from=buildenv  /usr/lib/perl5/core_perl/CORE/libperl* \
 
 # for healthcheck.sh
 COPY --from=buildenv /usr/bin/awk /usr/bin/drill /usr/bin/id \
-        /app/usr/bin/
-
-# for Openssl
-# move to /app/usr/lib rather than /app/lib        
+        /app/usr/bin/ 
 
 COPY --from=buildenv /usr/local/openssl/lib/libssl.so.* /usr/local/openssl/lib/libcrypto.so.* \
         /app/lib/
@@ -281,6 +278,8 @@ ENV UNBOUND_HEALTHCHECK_PORT="${UNBOUND_HEALTHCHECK_PORT}" \
     PATH="/usr/local/unbound/unbound.d/sbin:/usr/local/sbin/:$PATH" 
 
 USER $UNBOUND_UID
+
+EXPOSE 5335/tcp 5335/udp
 
 WORKDIR /
 
