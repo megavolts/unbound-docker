@@ -3,7 +3,9 @@ name: CD 20 Build Unbound Docker Image
    
 on:   
   workflow_run:
-    workflows: [CD 10 Unbound and OpenSSL Build Environement Release]
+    workflows:
+      - CD 10 Unbound and OpenSSL Build Environement Release
+      - CD 11 Force new build on manual dispatch
     types:
       - completed
 
